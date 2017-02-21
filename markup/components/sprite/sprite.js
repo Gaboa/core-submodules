@@ -14,6 +14,7 @@ export default class Sprite extends PIXI.Sprite {
         container.addChild(this);
     }
     handlers() {
+        console.log('I am handled!');
         this.interactive = true;
     }
     update() {
