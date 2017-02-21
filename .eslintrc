@@ -11,7 +11,9 @@
     },
 
     "globals": {
-        "tars": true
+        "tars": true,
+        "PIXI": true,
+        "TweenMax": true
     },
 
     "extends": "eslint:recommended",
