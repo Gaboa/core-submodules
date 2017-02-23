@@ -6,12 +6,13 @@ export default class Game extends PIXI.Application {
         window.game = this;
 
         // Config
-        this.fixedBG = true;
+        this.width = width;
+        this.height = height;
         this.aspectRatio = width / height;
 
         // Resize handler
-        // window.addEventListener('resize', this.resize.bind(this));
-        // this.resize();
+        window.addEventListener('resize', this.resize.bind(this));
+        this.resize();
     }
     startLevel(Level) {
         this.stage.removeChildren();
@@ -24,19 +25,15 @@ export default class Game extends PIXI.Application {
         game.ticker.add(this.currentLevel.update.bind(this.currentLevel));
     }
     resize() {
-        if (this.fixedBG) {
-            let newWidth, newHeight;
-            if (window.innerWidth > window.innerHeight * this.aspectRatio) {
-                newHeight = window.innerHeight;
-                newWidth = newHeight * this.aspectRatio;
-            } else {
-                newWidth = window.innerWidth;
-                newHeight = newWidth / this.aspectRatio;
-            }
-            this.renderer.resize(newWidth, newHeight);
-        } else {
-            this.renderer.resize(window.innerWidth, window.innerHeight);
-        }
+        let windowWidth = window.innerWidth;
+        let windowHeight = window.innerHeight;
+
+        let scaleX = windowWidth / this.width;
+        let scaleY = windowHeight / this.height;
+
+        let scale = Math.min(scaleX, scaleY);
+
+        this.view.style.transform = `scale(${scale}, ${scale})`;
     }
     preload(arr, baseUrl, onComplete) {
         this.loader = PIXI.loader;
