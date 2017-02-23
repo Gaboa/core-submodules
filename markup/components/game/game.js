@@ -10,8 +10,8 @@ export default class Game extends PIXI.Application {
         this.aspectRatio = width / height;
 
         // Resize handler
-        window.addEventListener('resize', this.resize.bind(this));
-        this.resize();
+        // window.addEventListener('resize', this.resize.bind(this));
+        // this.resize();
     }
     startLevel(Level) {
         this.stage.removeChildren();
