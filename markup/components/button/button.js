@@ -3,7 +3,6 @@ import Sprite from '../sprite/sprite';
 export default class Button extends Sprite {
     constructor({
         texture,
-        hoverTexture,
         x = 0,
         y = 0,
         container = game.stage,
@@ -12,13 +11,15 @@ export default class Button extends Sprite {
     }) {
         super({ texture, x, y, container, anchor });
 
-        this.normalTexture = texture;
-        this.hoverTexture = hoverTexture;
+        this.normalTexture = PIXI.utils.TextureCache[texture];
+        this.hoverTexture = PIXI.utils.TextureCache[`hover${texture}`];
         this.onClick = onClick;
 
         this.isDown = false;
         this.isUp = true;
         this.isOver = false;
+
+        this.handlers();
     }
     handlers() {
         this.interactive = true;

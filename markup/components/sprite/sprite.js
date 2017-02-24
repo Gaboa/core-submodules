@@ -6,16 +6,16 @@ export default class Sprite extends PIXI.Sprite {
         container = game.stage,
         anchor = 0.5
     }) {
-        super(texture);
+        super(PIXI.utils.TextureCache[texture]);
         this.x = x;
         this.y = y;
         this.anchor.x = anchor;
         this.anchor.y = anchor;
         container.addChild(this);
+        this.handlers();
     }
     handlers() {
-        console.log('I am handled!');
-        this.interactive = true;
+
     }
     update() {
 

@@ -15,13 +15,17 @@ export default class Game extends PIXI.Application {
         this.resize();
     }
     startLevel(Level) {
-        this.stage.removeChildren();
+        if (this.currentLevel && this.currentLevel.removeLevel) {
+            this.currentLevel.removeLevel();
+        } else {
+            this.stage.removeChildren();
+        }
 
         this.currentLevel = new Level();
 
         this.currentLevel.init && this.currentLevel.init();
         this.currentLevel.create && this.currentLevel.create();
-        this.currentLevel.handlers && this.currentLevel.handlers();
+
         game.ticker.add(this.currentLevel.update.bind(this.currentLevel));
     }
     resize() {
