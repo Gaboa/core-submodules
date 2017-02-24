@@ -36,7 +36,6 @@ export default class Button extends Sprite {
                 this.onClick();
             }
         });
-
     }
     update() {
         if (this.isOver) {

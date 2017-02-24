@@ -14,12 +14,8 @@ export default class Sprite extends PIXI.Sprite {
         container.addChild(this);
         this.handlers();
     }
-    handlers() {
-
-    }
-    update() {
-
-    }
+    handlers() {}
+    update() {}
     destroy() {
         this.parent.removeChild(this);
     }
