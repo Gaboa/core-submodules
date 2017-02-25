@@ -13,7 +13,18 @@
     "globals": {
         "tars": true,
         "PIXI": true,
-        "TweenMax": true
+        "TweenMax": true,
+        
+        // Test framework
+        "describe": true,
+        "before": true,
+        "beforeEach": true,
+        "after": true,
+        "afterEach": true,
+        "it": true,
+        "expect": true,
+        "sinon": true,
+        "chai": true
     },
 
     "extends": "eslint:recommended",
