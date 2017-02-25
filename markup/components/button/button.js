@@ -5,14 +5,14 @@ export default class Button extends Sprite {
         texture,
         x = 0,
         y = 0,
-        container = game.stage,
+        container,
         anchor = 0.5,
         onClick
     }) {
         super({ texture, x, y, container, anchor });
 
         this.normalTexture = PIXI.utils.TextureCache[texture];
-        this.hoverTexture = PIXI.utils.TextureCache[`hover${texture}`];
+        this.hoverTexture = PIXI.utils.TextureCache[`${texture}_hover`];
         this.onClick = onClick;
 
         this.isDown = false;
