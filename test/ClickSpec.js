@@ -1,50 +1,40 @@
 import * as PIXI from 'pixi.js';
+import {TweenMax} from 'gsap';
 import Pointer from '../markup/helpers/MockPointer';
 
 describe('click behavior', () => {
+
+    let pointer, stage, graphics, someVar = 1;
+
+    before(() => {
+
+        stage = new PIXI.Container();
+        pointer = new Pointer(stage);
+        document.body.appendChild(pointer.renderer.view);
+
+        graphics = new PIXI.Graphics();
+        graphics.beginFill(0xFF00FF);
+        graphics.drawRect(0, 0, 80, 80);
+        graphics.interactive = true;
+        stage.addChild(graphics);
+
+    });
+
     it('should call mousedown handler', function () {
 
-        const stage = new PIXI.Container();
-        const graphics = new PIXI.Graphics();
-        const pointer = new Pointer(stage);
-        let eventSpy = chai.spy();
-        let documentSpy = chai.spy();
+        let mouseDownSpy = chai.spy();
+        graphics.on('mousedown', mouseDownSpy);
+        pointer.mousedown(40, 40);
+        expect(mouseDownSpy).to.have.been.called.once;
 
-        stage.addChild(graphics);
-        graphics.beginFill(0xFFFFFF);
-        graphics.drawRect(0, 0, 50, 50);
-        graphics.interactive = true;
-        graphics.on('mousedown', eventSpy);
-        document.addEventListener('mousedown', documentSpy);
+    });
 
-        let someEvent = document.createEvent('MouseEvent');
+    it('should call over handler', () => {
 
-        someEvent.initMouseEvent(
-            'mousedown',
-            true,
-            false,
-            window,
-            null,
-            10, 10, 10, 10,
-            false, false, false, false, 0, null
-        );
+        let mouseOverSpy = chai.spy();
+        graphics.on('mousemove', mouseOverSpy);
+        pointer.mousemove(40, 40);
+        expect(mouseOverSpy).to.have.been.called.once;
 
-        console.log(someEvent);
-
-        document.dispatchEvent(someEvent);
-
-        expect(documentSpy).to.have.been.called.once;
-
-        // pointer.mousedown(0, 0);
-
-        // let someEvent = new MouseEvent('mousedown', {
-        //     clientX: 10,
-        //     clientY: 10,
-        //     preventDefault: () => {}
-        // });
-
-        // console.log(someEvent.isTrusted);
-
-        // expect(eventSpy).to.have.been.called.once;
     });
 });
