@@ -16,6 +16,7 @@ describe('Button class spec', () => {
 
         button = new Button({
             texture: 'test',
+            container: game.stage,
             x: 100,
             y: 100
         });
@@ -39,8 +40,8 @@ describe('Button class spec', () => {
         let bounds = button.getBounds();
         expect(bounds.width).to.be.equal(20);
         expect(bounds.height).to.be.equal(30);
-        expect(bounds.x).to.be.equal(button.x - button.width * button.anchor.x);
-        expect(bounds.y).to.be.equal(button.y - button.height * button.anchor.y);
+        expect(bounds.x).to.be.equal(90);
+        expect(bounds.y).to.be.equal(85);
     });
 
 });

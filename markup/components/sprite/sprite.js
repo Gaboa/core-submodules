@@ -3,7 +3,7 @@ export default class Sprite extends PIXI.Sprite {
         texture,
         x = 0,
         y = 0,
-        container = game.stage,
+        container,
         anchor = 0.5
     }) {
         super(PIXI.utils.TextureCache[texture]);

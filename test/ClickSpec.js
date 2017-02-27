@@ -34,7 +34,7 @@ describe('click behavior', () => {
         let mouseOverSpy = chai.spy();
         graphics.on('mousemove', mouseOverSpy);
         pointer.mousemove(40, 40);
-        expect(mouseOverSpy).to.have.been.called.once;
+        expect(mouseOverSpy).to.have.been.called.twice;
 
     });
 });
