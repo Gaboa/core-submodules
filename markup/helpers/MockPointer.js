@@ -1,7 +1,7 @@
 export default class MockPointer {
     constructor(stage, width, height) {
         this.stage = stage;
-        this.renderer = new PIXI.CanvasRenderer(width || 100, height || 100);
+        this.renderer = new PIXI.CanvasRenderer(width || 100, height || 100, { backgroundColor: 0x1099bb });
         this.renderer.sayHello = () => { /* empty */ };
         this.interaction = this.renderer.plugins.interaction;
     }
@@ -18,33 +18,58 @@ export default class MockPointer {
     }
 
     mousemove(x, y) {
-        const mouseEvent = new MouseEvent('mousemove', {
-            clientX: x,
-            clientY: y,
-            preventDefault: sinon.stub(),
-        });
+        let eventMove = document.createEvent('MouseEvent');
+        let eventOver = document.createEvent('MouseEvent');
+        let eventOut = document.createEvent('MouseEvent');
+
+        eventMove.initMouseEvent(
+            'mousemove',
+            true,
+            false,
+            window,
+            null,
+            x, y, x, y,
+            false, false, false, false, 0, null
+        );
+
+        eventOver.initMouseEvent(
+            'mouseover',
+            true,
+            false,
+            window,
+            null,
+            x, y, x, y,
+            false, false, false, false, 0, null
+        );
+
+        eventOver.initMouseEvent(
+            'mouseout',
+            true,
+            false,
+            window,
+            null,
+            x, y, x, y,
+            false, false, false, false, 0, null
+        );
 
         this.setPosition(x, y);
         this.render();
+
         // mouseOverRenderer state should be correct, so mouse position to view rect
         const rect = new PIXI.Rectangle(0, 0, this.renderer.width, this.renderer.height);
 
         if (rect.contains(x, y)) {
             if (!this.interaction.mouseOverRenderer) {
-                this.interaction.onPointerOver(new MouseEvent('mouseover', {
-                    clientX: x,
-                    clientY: y,
-                    preventDefault: sinon.stub(),
-                }));
+                this.interaction.onPointerOver(eventOver);
+                this.renderer.view.dispatchEvent(eventOver);
             }
-            this.interaction.onPointerMove(mouseEvent);
+            this.interaction.onPointerMove(eventMove);
+            this.renderer.view.dispatchEvent(eventMove);
         } else {
-            this.interaction.onPointerOut(new MouseEvent('mouseout', {
-                clientX: x,
-                clientY: y,
-                preventDefault: sinon.stub(),
-            }));
+            this.interaction.onPointerOut(eventOut);
+            this.renderer.view.dispatchEvent(eventOut);
         }
+
     }
 
     click(x, y) {
@@ -53,15 +78,23 @@ export default class MockPointer {
     }
 
     mousedown(x, y) {
-        const mouseEvent = new MouseEvent('mousedown', {
-            clientX: x,
-            clientY: y,
-            preventDefault: sinon.stub(),
-        });
+        let event = document.createEvent('MouseEvent');
+
+        event.initMouseEvent(
+            'mousedown',
+            true,
+            false,
+            window,
+            null,
+            x, y, x, y,
+            false, false, false, false, 0, null
+        );
 
         this.setPosition(x, y);
+        this.interaction.onPointerDown(event);
         this.render();
-        this.interaction.onPointerDown(mouseEvent);
+
+        this.renderer.view.dispatchEvent(event);
     }
 
     mouseup(x, y) {
