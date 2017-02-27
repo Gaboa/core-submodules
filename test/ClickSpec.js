@@ -12,8 +12,8 @@ describe('click behavior', () => {
         document.body.appendChild(pointer.renderer.view);
 
         graphics = new PIXI.Graphics();
-        graphics.beginFill(0xFF00FF);
-        graphics.drawRect(0, 0, 80, 80);
+        graphics.beginFill(0xFFF0FF);
+        graphics.drawRect(0, 0, 60, 60);
         graphics.interactive = true;
         stage.addChild(graphics);
 
@@ -33,7 +33,7 @@ describe('click behavior', () => {
         let mouseOverSpy = chai.spy();
         graphics.on('mousemove', mouseOverSpy);
         pointer.mousemove(40, 40);
-        expect(mouseOverSpy).to.have.been.called.twice;
+        expect(mouseOverSpy).to.have.been.called.once;
 
     });
 

@@ -2,15 +2,16 @@ import * as PIXI from 'pixi.js';
 import Game from '../markup/components/game/game';
 import Button from '../markup/components/button/button';
 
-describe('Button class spec', () => {
+describe('Button class', () => {
 
     let game, button;
+    let texture, hoverTexture;
 
     before(() => {
         game = new Game(500, 500);
 
-        let texture = new PIXI.RenderTexture.create(20, 30);
-        let hoverTexture = new PIXI.RenderTexture.create(50, 50);
+        texture = new PIXI.RenderTexture.create(20, 30);
+        hoverTexture = new PIXI.RenderTexture.create(50, 50);
         PIXI.utils.TextureCache['test'] = texture;
         PIXI.utils.TextureCache['test_hover'] = hoverTexture;
 
