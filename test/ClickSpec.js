@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import {TweenMax} from 'gsap';
 import Pointer from '../markup/helpers/MockPointer';
 
 describe('click behavior', () => {
@@ -37,4 +36,5 @@ describe('click behavior', () => {
         expect(mouseOverSpy).to.have.been.called.twice;
 
     });
+
 });
