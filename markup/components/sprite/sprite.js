@@ -8,14 +8,13 @@ export default class Sprite extends PIXI.Sprite {
     }) {
         super(PIXI.utils.TextureCache[texture]);
 
+        this.checkInputParams({ texture, container, x, y, anchor });
+
         this.x = x;
         this.y = y;
         this.anchor.x = anchor;
         this.anchor.y = anchor;
 
-        if (!texture) {
-            throw new Error('Texture parameter is undefined!');
-        }
         if (container) {
             container.addChild(this);
         }
@@ -24,7 +23,7 @@ export default class Sprite extends PIXI.Sprite {
     }
     handlers() {}
     update() {
-        if (this.paused) return;
+        if (this.paused) return false;
     }
     pause() {
         this.paused = true;
@@ -34,5 +33,25 @@ export default class Sprite extends PIXI.Sprite {
     }
     destroy() {
         this.parent.removeChild(this);
+    }
+    checkInputParams({ texture, container, x, y, anchor }) {
+        if (typeof texture === 'undefined') {
+            throw new Error('Parameter "texture" is required!');
+        }
+        if (typeof texture !== 'string') {
+            throw new Error('Parameter "texture" must be a string key to your texture in TextureCache!');
+        }
+        if (typeof PIXI.utils.TextureCache[texture] === 'undefined') {
+            throw new Error('We have no such texture in TextureCache!');
+        }
+        if (typeof container !== 'object' || typeof container.children !== 'object') {
+            throw new Error('Parameter "container" must be an object with field "children"!');
+        }
+        if (typeof x !== 'number') {
+            throw new Error('Parameter "x", "y", "anchor" must be a numbers!');
+        }
+        if (anchor < 0 || anchor > 1) {
+            throw new Error('Parameter "anchor" must be a number in edges: 0 <= "anchor" <= 1!');
+        }
     }
 }
