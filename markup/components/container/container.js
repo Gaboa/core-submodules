@@ -18,6 +18,8 @@ export default class Container extends PIXI.Container {
     }
     destroy() {
         this.removeChildren();
-        this.parent.removeChild(this);
+        if (this.parent) {
+            this.parent.removeChild(this);
+        }
     }
 }
