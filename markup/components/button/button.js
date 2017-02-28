@@ -3,10 +3,10 @@ import Sprite from '../sprite/sprite';
 export default class Button extends Sprite {
     constructor({
         texture,
-        x = 0,
-        y = 0,
+        x,
+        y,
         container,
-        anchor = 0.5,
+        anchor,
         onClick
     }) {
         super({ texture, x, y, container, anchor });
@@ -15,8 +15,7 @@ export default class Button extends Sprite {
         this.hoverTexture = PIXI.utils.TextureCache[`${texture}_hover`];
         this.onClick = onClick;
 
-        this.isDown = false;
-        this.isUp = true;
+        this.isPressed = false;
         this.isOver = false;
 
         this.handlers();
@@ -32,9 +31,7 @@ export default class Button extends Sprite {
             this.isOver = false;
         });
         this.on('pointerup', () => {
-            if (typeof this.onClick === 'function') {
-                this.onClick();
-            }
+            this.isPressed = true;
         });
     }
     update() {
@@ -46,6 +43,12 @@ export default class Button extends Sprite {
             if (this.texture !== this.normalTexture) {
                 this.texture = this.normalTexture;
             }
+        }
+        if (this.isPressed) {
+            if (typeof this.onClick === 'function') {
+                this.onClick();
+            }
+            this.isPressed = false;
         }
     }
 }
