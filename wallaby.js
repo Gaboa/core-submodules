@@ -15,7 +15,6 @@ module.exports = function (wallaby) {
             { pattern: 'node_modules/chai-spies/chai-spies.js', instrument: false },
             { pattern: 'node_modules/sinon/pkg/sinon.js', instrument: false },
 
-            { pattern: 'markup/static/js/main.js', load: false },
             { pattern: 'markup/components/**/*.js', load: false },
             { pattern: 'markup/helpers/**/*.js', load: false }
         ],
