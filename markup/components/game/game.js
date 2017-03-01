@@ -10,6 +10,9 @@ export default class Game extends PIXI.Application {
         this.height = height;
         this.aspectRatio = width / height;
 
+        // Add loader
+        this.loader = PIXI.loader;
+
         // Resize handler
         window.addEventListener('resize', this.resize.bind(this));
         this.resize();
@@ -23,10 +26,9 @@ export default class Game extends PIXI.Application {
 
         this.currentLevel = new Level();
 
-        this.currentLevel.init && this.currentLevel.init();
         this.currentLevel.create && this.currentLevel.create();
 
-        game.ticker.add(this.currentLevel.update.bind(this.currentLevel));
+        game.ticker.add(this.currentLevel.addLogic, this.currentLevel);
     }
     resize() {
         let windowWidth = window.innerWidth;
@@ -40,8 +42,9 @@ export default class Game extends PIXI.Application {
         this.view.style.transform = `scale(${scale}, ${scale})`;
     }
     preload(arr, baseUrl, onComplete) {
-        this.loader = PIXI.loader;
-        this.loader.baseUrl = baseUrl || '';
+        if (baseUrl) {
+            this.loader.baseUrl = baseUrl;
+        }
         arr.forEach((element) => {
             this.loader.add(element);
         });

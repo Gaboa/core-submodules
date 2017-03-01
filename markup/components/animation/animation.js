@@ -20,10 +20,11 @@ export default class Animation extends PIXI.Container {
         });
         this.currentAnimation = this.animations[0].name;
         this.play(this.currentAnimation);
-    }
-    handlers() {
 
+        this.addHandlers();
     }
+    addHandlers() {}
+    addLogic() {}
     play(name) {
         this.animations.forEach((animationObj) => {
             if (animationObj.name !== name) {

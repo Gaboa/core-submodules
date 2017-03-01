@@ -3,25 +3,24 @@ import Sprite from '../sprite/sprite';
 export default class Button extends Sprite {
     constructor({
         texture,
-        x = 0,
-        y = 0,
-        container = game.stage,
-        anchor = 0.5,
+        x,
+        y,
+        container,
+        anchor,
         onClick
     }) {
         super({ texture, x, y, container, anchor });
 
         this.normalTexture = PIXI.utils.TextureCache[texture];
-        this.hoverTexture = PIXI.utils.TextureCache[`hover${texture}`];
+        this.hoverTexture = PIXI.utils.TextureCache[`${texture}_hover`];
         this.onClick = onClick;
 
-        this.isDown = false;
-        this.isUp = true;
+        this.isPressed = false;
         this.isOver = false;
 
-        this.handlers();
+        this.addHandlers();
     }
-    handlers() {
+    addHandlers() {
         this.interactive = true;
         this.buttonMode = true;
 
@@ -32,12 +31,10 @@ export default class Button extends Sprite {
             this.isOver = false;
         });
         this.on('pointerup', () => {
-            if (typeof this.onClick === 'function') {
-                this.onClick();
-            }
+            this.isPressed = true;
         });
     }
-    update() {
+    addLogic() {
         if (this.isOver) {
             if (this.texture !== this.hoverTexture) {
                 this.texture = this.hoverTexture;
@@ -46,6 +43,12 @@ export default class Button extends Sprite {
             if (this.texture !== this.normalTexture) {
                 this.texture = this.normalTexture;
             }
+        }
+        if (this.isPressed) {
+            if (typeof this.onClick === 'function') {
+                this.onClick();
+            }
+            this.isPressed = false;
         }
     }
 }
