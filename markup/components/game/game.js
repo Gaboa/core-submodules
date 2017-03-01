@@ -26,10 +26,9 @@ export default class Game extends PIXI.Application {
 
         this.currentLevel = new Level();
 
-        this.currentLevel.init && this.currentLevel.init();
         this.currentLevel.create && this.currentLevel.create();
 
-        game.ticker.add(this.currentLevel.update.bind(this.currentLevel));
+        game.ticker.add(this.currentLevel.addLogic, this.currentLevel);
     }
     resize() {
         let windowWidth = window.innerWidth;

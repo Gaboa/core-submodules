@@ -19,10 +19,10 @@ export default class Sprite extends PIXI.Sprite {
             container.addChild(this);
         }
 
-        this.handlers();
+        this.addHandlers();
     }
-    handlers() {}
-    update() {
+    addHandlers() {}
+    addLogic() {
         if (this.paused) return false;
     }
     pause() {

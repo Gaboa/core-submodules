@@ -18,9 +18,9 @@ export default class Button extends Sprite {
         this.isPressed = false;
         this.isOver = false;
 
-        this.handlers();
+        this.addHandlers();
     }
-    handlers() {
+    addHandlers() {
         this.interactive = true;
         this.buttonMode = true;
 
@@ -34,7 +34,7 @@ export default class Button extends Sprite {
             this.isPressed = true;
         });
     }
-    update() {
+    addLogic() {
         if (this.isOver) {
             if (this.texture !== this.hoverTexture) {
                 this.texture = this.hoverTexture;
