@@ -13,7 +13,7 @@ export default class Button extends Sprite {
 
         this.textureName = texture.split('.')[0];
         this.normalTexture = PIXI.utils.TextureCache[texture];
-        this.hoverTexture = PIXI.utils.TextureCache[`${this.textureName}_hover`];
+        this.hoverTexture = PIXI.utils.TextureCache[`${this.textureName}_hover.png`];
         this.onClick = onClick;
 
         this.isPressed = false;
