@@ -209,11 +209,11 @@ describe('test Sprite class', () => {
             expect(sprite.paused).to.be.ok;
         });
 
-        it('update method', () => {
+        it('addLogic method', () => {
             sprite.pause();
-            expect(sprite.update()).to.be.equal(false);
+            expect(sprite.addLogic()).to.be.equal(false);
             sprite.resume();
-            expect(sprite.update()).to.be.an('undefined');
+            expect(sprite.addLogic()).to.be.an('undefined');
         });
 
         it('resume method', () => {

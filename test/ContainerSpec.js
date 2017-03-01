@@ -5,7 +5,7 @@ import Container from '../markup/components/container/container';
 
 describe('Container class', () =>  {
     let container, containerWithParent, child;
-    let updateSpy, pauseSpy, resumeSpy;
+    let handlersSpy, logicSpy, pauseSpy, resumeSpy;
 
     before(() => {
         container = new Container();
@@ -17,7 +17,8 @@ describe('Container class', () =>  {
             container: containerWithParent
         });
 
-        updateSpy = chai.spy.on(child, 'update');
+        handlersSpy = chai.spy.on(child, 'addHandlers');
+        logicSpy = chai.spy.on(child, 'addLogic');
         pauseSpy = chai.spy.on(child, 'pause');
         resumeSpy = chai.spy.on(child, 'resume');
     });
@@ -34,9 +35,14 @@ describe('Container class', () =>  {
         expect(containerWithParent.parent).to.be.an('object');
     });
 
-    it('should call update method of its children', () => {
-        containerWithParent.update();
-        expect(updateSpy).to.be.called.once;
+    it('should call addLogic method of its children', () => {
+        containerWithParent.addHandlers();
+        expect(handlersSpy).to.be.called.once;
+    });
+
+    it('should call addLogic method of its children', () => {
+        containerWithParent.addLogic();
+        expect(logicSpy).to.be.called.once;
     });
 
     it('should call pause method of its children', () => {

@@ -3,32 +3,31 @@ import Game from '../markup/components/game/game';
 
 describe('Game class', () => {
     let game, Level;
-    let initSpy, createSpy, updateSpy;
+    let createSpy, logicSpy;
     let removeLevelSpy, removeStageSpy;
 
     before(() => {
         game = new Game(500, 500);
 
-        initSpy = chai.spy();
         createSpy = chai.spy();
-        updateSpy = chai.spy();
+        logicSpy = chai.spy();
+
         removeLevelSpy = chai.spy();
         removeStageSpy = chai.spy.on(game.stage, 'removeChildren');
 
         Level = class {
             constructor() {}
-            init() { initSpy() }
             create() { createSpy() }
-            update() { updateSpy() }
+            addLogic() { logicSpy() }
         };
 
     });
 
     it('should start new level', () => {
         game.startLevel(Level);
-        expect(initSpy).to.have.been.called.once;
         expect(createSpy).to.have.been.called.once;
-        expect(updateSpy).to.have.been.called;
+        game.ticker.update();
+        expect(logicSpy).to.have.been.called.once;
     });
 
     it('should clean stage or level', () => {

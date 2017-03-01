@@ -61,7 +61,7 @@ describe('Button class', () => {
         it('button handles click', () => {
             pointer.click(9, 10);
             expect(button.isPressed).to.be.ok;
-            button.update();
+            button.addLogic();
             expect(clickSpy).to.have.been.called.once;
             expect(button.isPressed).to.be.not.ok;
         });
@@ -72,7 +72,7 @@ describe('Button class', () => {
             pointer.mouseout(0, 10);
             expect(button.isOver).to.be.not.ok;
             button.texture = null;
-            button.update();
+            button.addLogic();
             expect(button.texture).to.be.equal(button.normalTexture);
         });
 
@@ -82,7 +82,7 @@ describe('Button class', () => {
             pointer.mouseover(0, 10);
             expect(button.isOver).to.be.ok;
             button.texture = null;
-            button.update();
+            button.addLogic();
             expect(button.texture).to.be.equal(button.hoverTexture);
         });
 
