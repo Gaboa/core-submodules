@@ -4,7 +4,6 @@ export default class Container extends PIXI.Container {
         if (parent) {
             parent.addChild(this);
         }
-        this.addHandlers();
     }
     addHandlers() {
         this.children.forEach((child) => child.addHandlers());

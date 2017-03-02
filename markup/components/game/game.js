@@ -27,6 +27,7 @@ export default class Game extends PIXI.Application {
         this.currentLevel = new Level();
 
         this.currentLevel.create && this.currentLevel.create();
+        this.currentLevel.addHandlers && this.currentLevel.addHandlers();
 
         game.ticker.add(this.currentLevel.addLogic, this.currentLevel);
     }

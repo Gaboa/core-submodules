@@ -18,8 +18,6 @@ export default class Button extends Sprite {
 
         this.isPressed = false;
         this.isOver = false;
-
-        this.addHandlers();
     }
     addHandlers() {
         this.interactive = true;
