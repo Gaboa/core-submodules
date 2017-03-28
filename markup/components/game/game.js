@@ -1,7 +1,7 @@
 export default class Game extends PIXI.Application {
-    constructor(width, height, backgroundColor = 0x1099bb) {
+    constructor(width, height, options) {
         // Initialize
-        super(width, height, { backgroundColor });
+        super(width, height, options);
         document.body.appendChild(this.view);
         window.game = this;
 
