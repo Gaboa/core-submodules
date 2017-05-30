@@ -4,7 +4,8 @@ export default class Sprite extends PIXI.Sprite {
         container,
         x = 0,
         y = 0,
-        anchor = 0.5
+        anchor = 0.5,
+        scale = 1
     }) {
         super(PIXI.utils.TextureCache[texture]);
 
@@ -14,6 +15,8 @@ export default class Sprite extends PIXI.Sprite {
         this.y = y;
         this.anchor.x = anchor;
         this.anchor.y = anchor;
+        this.scale.x = scale;
+        this.scale.y = scale;
 
         if (container) {
             container.addChild(this);

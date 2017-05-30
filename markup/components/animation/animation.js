@@ -40,7 +40,9 @@ export default class Animation extends PIXI.Container {
     static createArrayOfTextures(name, length, prefix = '') {
         let result = [];
         for (let i = 1; i <= length; i++) {
-            result.push(PIXI.utils.TextureCache[`${name}_${prefix}${i}.png`]);
+            result.push(PIXI.utils.TextureCache[
+                `${name}_ (${i}).png`
+            ]);
         }
         return result;
     }
