@@ -65,7 +65,7 @@ export default class Button extends Sprite {
     }
 
     tap(number) {
-        // game.audio.playEffect('click_sound_1');
+        game.audio.playEffect('click_1');
         if (this.tapTexture) {
             this.texture = this.tapTexture;
         }
